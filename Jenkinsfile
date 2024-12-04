@@ -1,3 +1,5 @@
+@Library('Jenkins-Shared_library')
+def gv
 pipeline {
     agent any
 
@@ -21,6 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
+                    sh 'chmod +x ./gradlew'
                     sh './gradlew test'
                 }
             }
@@ -29,6 +32,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
+                     sh 'chmod +x ./gradlew'
                     sh './gradlew build'
                 }
             }
@@ -37,6 +41,7 @@ pipeline {
         stage('Package') {
             steps {
                 script {
+                    sh 'chmod +x ./gradlew'
                     sh './gradlew bootJar'
                 }
             }
