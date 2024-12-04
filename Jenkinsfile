@@ -69,7 +69,7 @@ pipeline {
                         
                         sh """
                         git config --global user.email ahmedelbltagy1999@gmail.com && git config --global user.name ahmedgaberelbltagy
-                        git clone https://github.com/AhmedGaberElbltagy/manifest-files.git
+                        git clone https://\${token}@github.com/AhmedGaberElbltagy/manifest-files.git
                         cd manifest-files
                         echo "checkout main branch"
                         git checkout main
