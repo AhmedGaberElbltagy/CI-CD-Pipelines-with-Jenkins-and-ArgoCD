@@ -73,7 +73,7 @@ pipeline {
                         cd manifest-files
                         sed -i 's|image: .*|image: ahmedelbltagy/gitops${env.RELEASE_VERSION}|' deployment.yaml
                         echo "updating image tag in values file"
-                        
+                        git add . && git commit -m "update image tag"
                         """
                         
                 }
