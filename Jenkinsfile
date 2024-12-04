@@ -32,8 +32,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    //  sh 'chmod +x ./gradlew'
-                    // sh './gradlew build'
+                     sh 'chmod +x ./gradlew'
+                    sh './gradlew build'
                     echo 'building'
                 }
             }
@@ -42,8 +42,8 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    // sh 'chmod +x ./gradlew'
-                    // sh './gradlew bootJar'
+                    sh 'chmod +x ./gradlew'
+                    sh './gradlew bootJar'
                     echo 'packageing'
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
                     env.RELEASE_VERSION = sh(
                         script: "git log -1 --pretty=format:%H | head -c 9", returnStdout: true ).trim()
                     
-                    echo 'RELEASE_VERSION is ${env.RELEASE_VERSION'
+                    echo 'RELEASE_VERSION is ${env.RELEASE_VERSION}'
 
                     buildImage "gitops:${env.RELEASE_VERSION}"
                     dockerLogin()
