@@ -71,6 +71,8 @@ pipeline {
                         git config --global user.email ahmedelbltagy1999@gmail.com && git config --global user.name ahmedgaberelbltagy
                         git clone https://github.com/AhmedGaberElbltagy/manifest-files.git
                         cd manifest-files
+                        echo "checkout main branch"
+                        git checkout main
                         sed -i 's|image: .*|image: ahmedelbltagy/gitops${env.RELEASE_VERSION}|' deployment.yaml
                         echo "updating image tag in values file"
                         git add . && git commit -m "update image tag"
