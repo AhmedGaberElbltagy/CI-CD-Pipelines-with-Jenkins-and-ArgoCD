@@ -63,10 +63,6 @@ pipeline {
                 }
             }
         }
-    }
-}
-
-
         stage('Promote to Dev Environment') {
             steps {
                 script {
@@ -79,6 +75,11 @@ pipeline {
                 }
             }
         }
+    }
+}
+
+
+        
 
         
         
