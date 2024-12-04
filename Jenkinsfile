@@ -32,8 +32,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                     sh 'chmod +x ./gradlew'
-                    sh './gradlew build'
+                    //  sh 'chmod +x ./gradlew'
+                    // sh './gradlew build'
                     echo 'building'
                 }
             }
@@ -42,8 +42,8 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    sh 'chmod +x ./gradlew'
-                    sh './gradlew bootJar'
+                    // sh 'chmod +x ./gradlew'
+                    // sh './gradlew bootJar'
                     echo 'packageing'
                 }
             }
@@ -57,9 +57,9 @@ pipeline {
                     
                     echo 'RELEASE_VERSION is ${env.RELEASE_VERSION}'
 
-                    buildImage "gitops:${env.RELEASE_VERSION}"
-                    dockerLogin()
-                    pushImage "gitops:${env.RELEASE_VERSION}"
+                    // buildImage "gitops:${env.RELEASE_VERSION}"
+                    // dockerLogin()
+                    // pushImage "gitops:${env.RELEASE_VERSION}"
                 }
             }
         }
