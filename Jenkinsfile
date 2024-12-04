@@ -2,12 +2,7 @@
 def gv
 pipeline {
     agent any
-    environment{
-        // AWS_ACCESS_KEY_ID = credentials('jenkins-aws-access-key-id')
-        // AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key-id')
-        // KUBE_NAMESPACE = 'development'		
-        // INGRESS_NAMESPACE = 'ingress-nginx'	
-    }
+    
     tools{
         gradle '8.10'
     }
