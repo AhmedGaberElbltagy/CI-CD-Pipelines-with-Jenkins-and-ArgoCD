@@ -32,8 +32,9 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                     sh 'chmod +x ./gradlew'
-                    sh './gradlew build'
+                    //  sh 'chmod +x ./gradlew'
+                    // sh './gradlew build'
+                    echo 'building'
                 }
             }
         }
@@ -41,8 +42,9 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    sh 'chmod +x ./gradlew'
-                    sh './gradlew bootJar'
+                    // sh 'chmod +x ./gradlew'
+                    // sh './gradlew bootJar'
+                    echo 'packageing'
                 }
             }
         }
@@ -51,7 +53,7 @@ pipeline {
             steps {
                 script {
                     sh 'RELEASE_VERSION=`git log -1 --pretty=format:%H | head -c 9` ' 
-                    echo '$RELEASE_VERSION'
+                    echo 'RELEASE_VERSION'
                     // buildImage 'gitops'
                     // dockerLogin()
                     // pushImage 'gitops'
