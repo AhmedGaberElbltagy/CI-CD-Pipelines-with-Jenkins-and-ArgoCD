@@ -55,7 +55,7 @@ pipeline {
                     env.RELEASE_VERSION = sh(
                         script: "git log -1 --pretty=format:%H | head -c 9", returnStdout: true ).trim()
                     
-                    echo 'RELEASE_VERSION'${env.RELEASE_VERSION}
+                    echo "RELEASE_VERSION ${env.RELEASE_VERSION} "
 
                     // buildImage "gitops:${env.RELEASE_VERSION}"
                     // dockerLogin()
