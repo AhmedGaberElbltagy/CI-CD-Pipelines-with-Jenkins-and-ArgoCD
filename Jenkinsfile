@@ -52,13 +52,18 @@ pipeline {
         stage('Build and Push Image') {
             steps {
                 script {
-                    sh 'RELEASE_VERSION=`git log -1 --pretty=format:%H | head -c 9` ' 
-                    echo 'RELEASE_VERSION'
-                    // buildImage 'gitops'
-                    // dockerLogin()
-                    // pushImage 'gitops'
+                    env.RELEASE_VERSION = sh(
+                        script: "git log -1 --pretty=format:%H | head -c 9", returnStdout: true ).trim()
+                    
+                    echo 'RELEASE_VERSION is ${env.RELEASE_VERSION'
+
+                    buildImage "gitops:${env.RELEASE_VERSION}"
+                    dockerLogin()
+                    pushImage "gitops:${env.RELEASE_VERSION}"
                 }
             }
         }
     }
 }
+
+
