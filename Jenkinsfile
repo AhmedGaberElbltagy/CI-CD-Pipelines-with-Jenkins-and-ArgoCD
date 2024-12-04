@@ -67,7 +67,7 @@ pipeline {
 }
 
 
-       stage('Promote to Dev Environment') {
+        stage('Promote to Dev Environment') {
             steps {
                 script{
                         sh """
@@ -75,7 +75,6 @@ pipeline {
                         git clone https://github.com/AhmedGaberElbltagy/manifest-files.git
                         pwd && ls
                         """
-                
                         
                 }
             }
