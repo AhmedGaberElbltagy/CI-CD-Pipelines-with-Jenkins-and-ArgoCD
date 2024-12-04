@@ -67,3 +67,15 @@ pipeline {
 }
 
 
+        stage('Promote to Dev Enviroment ') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'github_credientials',usernameVariable: 'GIT_USER',passwordVariable: 'GIT_PASS')]) {
+                        sh """
+                        git clone https://$GIT_USER:$GIT_PASS@github.com/$GIT_USER/manifest-files.git
+                        pwd & ls 
+                        """
+                    }
+                }
+            }
+        }
