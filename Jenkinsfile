@@ -6,6 +6,33 @@ pipeline {
     tools {
         gradle 'gradle' // Use the exact name configured in Jenkins for Gradle
     }
+    stages {
+        stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }       
+         stage('Lint') {
+            steps {
+                script {
+                  // Run the gradle check task, which includes linting
+                    //LintApp functions is avaliable in the jenkins-shared-library
+                    
+                    lintApp()
+                }
+            }
+            post {
+                always {
+                    // Archive the linting report if any
+                    archiveArtifacts artifacts: '**/build/reports/**', allowEmptyArchive: true
+                }
+            }
+        }
 
     stages {
         stage('Cleanup Workspace') {
@@ -20,21 +47,19 @@ pipeline {
             }
         }
 
-        // stage('Test') {
-        //     steps {
-        //         script {
-        //             sh 'chmod +x ./gradlew'
-        //             sh './gradlew test'
-        //         }
-        //     }
-        // }
-
+        stage('Test') {
+            steps {
+                script {
+                     //testApp functions is avaliable in the jenkins-shared-library
+                    sh './gradlew test'
+                }
+            }
+        }
         stage('Build') {
             steps {
                 script {
-                    //  sh 'chmod +x ./gradlew'
+                     //BootJar functions is avaliable in the jenkins-shared-library
                     // sh './gradlew build'
-                    echo 'building'
                 }
             }
         }
@@ -42,9 +67,8 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    // sh 'chmod +x ./gradlew'
-                    // sh './gradlew bootJar'
-                    echo 'packageing'
+                    //packageApp functions is avaliable in the jenkins-shared-library
+                    packageApp()
                 }
             }
         }
@@ -52,14 +76,16 @@ pipeline {
         stage('Build and Push Image') {
             steps {
                 script {
+                     //buildImage , pushImage ,docker login functions is avaliable in the jenkins-shared-library,
+                     // and they takes a varaiable 'image name'
+                     // the image Tag is equal to the commit Hash
                     env.RELEASE_VERSION = sh(
                         script: "git log -1 --pretty=format:%H | head -c 9", returnStdout: true ).trim()
                     
                     echo "RELEASE_VERSION ${env.RELEASE_VERSION} "
-
-                    // buildImage "gitops:${env.RELEASE_VERSION}"
-                    // dockerLogin()
-                    // pushImage "gitops:${env.RELEASE_VERSION}"
+                    buildImage "gitops:${env.RELEASE_VERSION}"
+                    dockerLogin()
+                    pushImage "gitops:${env.RELEASE_VERSION}"
                 }
             }
         }
@@ -71,7 +97,7 @@ pipeline {
                                     string(credentialsId: 'username', variable: 'USERNAME')]) {
                         sh """
                         git config --global user.email ${EMAIL} && git config --global user.name ${USERNAME}
-                        git clone https://\${GITHUB_TOKEN}@github.com/AhmedGaberElbltagy/manifest-files.git
+                        git clone https://\${GITHUB_TOKEN}@github.com/${USERNAME}/manifest-files.git
                         cd manifest-files
                         echo "checkout main branch"
                         git checkout main
@@ -84,6 +110,7 @@ pipeline {
                 }
             }
         }
+    }
     }
 }
 
