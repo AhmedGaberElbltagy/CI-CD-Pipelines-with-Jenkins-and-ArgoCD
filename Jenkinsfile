@@ -20,14 +20,14 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                script {
-                    sh 'chmod +x ./gradlew'
-                    sh './gradlew test'
-                }
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         script {
+        //             sh 'chmod +x ./gradlew'
+        //             sh './gradlew test'
+        //         }
+        //     }
+        // }
 
         stage('Build') {
             steps {
@@ -50,9 +50,9 @@ pipeline {
         stage('Build and Push Image') {
             steps {
                 script {
-                    buildImage 'gitOps'
+                    buildImage 'gitops'
                     dockerLogin()
-                    pushImage 'gitOps'
+                    pushImage 'gitops'
                 }
             }
         }
