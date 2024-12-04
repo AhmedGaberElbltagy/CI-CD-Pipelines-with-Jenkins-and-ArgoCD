@@ -66,19 +66,19 @@ pipeline {
         stage('Promote to Dev Environment') {
             steps {
                 script {
-                        
+                        withCredentials([string(credentialsId: 'token', variable: 'GITHUB_TOKEN')]) {
                         sh """
                         git config --global user.email ahmedelbltagy1999@gmail.com && git config --global user.name ahmedgaberelbltagy
-                        git clone https://\${token}@github.com/AhmedGaberElbltagy/manifest-files.git
+                        git clone https://\${GITHUB_TOKEN}@github.com/AhmedGaberElbltagy/manifest-files.git
                         cd manifest-files
                         echo "checkout main branch"
                         git checkout main
                         sed -i 's|image: .*|image: ahmedelbltagy/gitops:${env.RELEASE_VERSION}|' deployment.yaml
                         echo "updating image tag in values file"
                         git add . && git commit -m "update image tag"
-                        git push https://\${token}@github.com/AhmedGaberElbltagy/manifest-files.git
+                        git push https://\${GITHUB_TOKEN}@github.com/AhmedGaberElbltagy/manifest-files.git
                         """
-                        
+                        }     
                 }
             }
         }
