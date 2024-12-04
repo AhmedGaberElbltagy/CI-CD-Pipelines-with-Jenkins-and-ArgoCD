@@ -1,5 +1,4 @@
-@Library('Jenkins-Shared_library')
-def gv
+
 pipeline {
     agent any
     
@@ -23,7 +22,7 @@ pipeline {
             steps {
                 script {
                     //testApp functions is avaliable in the jenkins-shared-library
-                    testApp()
+                   sh './gradlew test'
                 }
             }
         }
@@ -32,7 +31,7 @@ pipeline {
             steps {
                 script {
                     //buildJar functions is avaliable in the jenkins-shared-library
-                    buildJar()
+                   sh './gradlew build'
                 }
             }
         }
@@ -40,7 +39,7 @@ pipeline {
             steps {
                 script {
                     //packageApp functions is avaliable in the jenkins-shared-library
-                    packageApp()
+                    sh './gradlew bootJar'
                 }
             }
         }
