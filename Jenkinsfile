@@ -66,7 +66,7 @@ pipeline {
         stage('Promote to Dev Environment') {
             steps {
                 script {
-                        withCredentials([string(credentialsId: 'token', variable: 'GITHUB_TOKEN')]) {
+                        withCredentials([string(credentialsId: 'Token', variable: 'GITHUB_TOKEN')]) {
                         sh """
                         git config --global user.email ahmedelbltagy1999@gmail.com && git config --global user.name ahmedgaberelbltagy
                         git clone https://\${GITHUB_TOKEN}@github.com/AhmedGaberElbltagy/manifest-files.git
