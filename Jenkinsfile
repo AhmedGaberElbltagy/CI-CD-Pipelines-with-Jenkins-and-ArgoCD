@@ -69,13 +69,14 @@ pipeline {
 
        stage('Promote to Dev Environment') {
             steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'github_credientials', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                script{
                         sh """
-                        git clone https://${GIT_USER}:${GIT_PASS}@github.com/AhmedGaberElbltagy/manifest-files.git
+                        git config --global user.email ahmedelbltagy1999@gmail.com && git config --global user.name ahmedgaberelbltagy
+                        git clone https://github.com/AhmedGaberElbltagy/manifest-files.git
                         pwd && ls
                         """
-                    }
+                
+                        
                 }
             }
         }
