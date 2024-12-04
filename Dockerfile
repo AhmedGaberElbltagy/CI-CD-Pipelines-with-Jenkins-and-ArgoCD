@@ -1,8 +1,5 @@
 FROM openjdk:17-jdk
 
-
-
-
 WORKDIR /usr/app/
 
 COPY build/libs/java-spring-boot-0.0.1-SNAPSHOT.jar app.jar
