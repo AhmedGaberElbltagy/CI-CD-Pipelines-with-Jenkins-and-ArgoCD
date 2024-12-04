@@ -73,9 +73,10 @@ pipeline {
                         cd manifest-files
                         echo "checkout main branch"
                         git checkout main
-                        sed -i 's|image: .*|image: ahmedelbltagy/gitops${env.RELEASE_VERSION}|' deployment.yaml
+                        sed -i 's|image: .*|image: ahmedelbltagy/gitops:${env.RELEASE_VERSION}|' deployment.yaml
                         echo "updating image tag in values file"
                         git add . && git commit -m "update image tag"
+                        git push
                         """
                         
                 }
