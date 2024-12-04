@@ -66,12 +66,11 @@ pipeline {
         stage('Promote to Dev Environment') {
             steps {
                 script {
-                        withCredentials([string(credentialsId: 'Token', variable: 'GITHUB_TOKEN'),
-                                        string(credentialsId: 'email', variable: 'EMAIL')],
-                                        string(credentialsId: 'username', variable: 'USERNAME')],
-                        ) {
+                    withCredentials([string(credentialsId: 'Token', variable: 'GITHUB_TOKEN'),
+                                    string(credentialsId: 'email', variable: 'EMAIL'),
+                                    string(credentialsId: 'username', variable: 'USERNAME')]) {
                         sh """
-                        git config --global user.email ${Email} && git config --global user.name ${USERNAME}
+                        git config --global user.email ${EMAIL} && git config --global user.name ${USERNAME}
                         git clone https://\${GITHUB_TOKEN}@github.com/AhmedGaberElbltagy/manifest-files.git
                         cd manifest-files
                         echo "checkout main branch"
@@ -81,7 +80,7 @@ pipeline {
                         git add . && git commit -m "update image tag"
                         git push https://\${GITHUB_TOKEN}@github.com/${USERNAME}/manifest-files.git
                         """
-                        }     
+                    }
                 }
             }
         }
