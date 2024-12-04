@@ -55,7 +55,7 @@ pipeline {
                     env.RELEASE_VERSION = sh(
                         script: "git log -1 --pretty=format:%H | head -c 9", returnStdout: true ).trim()
                     
-                    echo 'RELEASE_VERSION is ${env.RELEASE_VERSION}'
+                    echo 'RELEASE_VERSION is "${env.RELEASE_VERSION}"'
 
                     // buildImage "gitops:${env.RELEASE_VERSION}"
                     // dockerLogin()
@@ -67,9 +67,13 @@ pipeline {
             steps {
                 script {
                         sh """
-                        git config --global user.email ahmedelbltagy1999@gmail.com && git config --global user.name ahmedgaberelbltagy
-                        git clone https://github.com/AhmedGaberElbltagy/manifest-files.git
-                        pwd && ls
+                        // git config --global user.email ahmedelbltagy1999@gmail.com && git config --global user.name ahmedgaberelbltagy
+                        // git clone https://github.com/AhmedGaberElbltagy/manifest-files.git
+                        // cd manifest-files
+                        echo "updating image tag in values file"
+                        // sed -i "s,tag:.*,tag:\ ${{ github.sha }}," helm/webapp/values.yaml
+                        // git add . && git commit -m "update image tag"
+                        // git push
                         """
                         
                 }
