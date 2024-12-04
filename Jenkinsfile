@@ -66,14 +66,12 @@ pipeline {
         stage('Promote to Dev Environment') {
             steps {
                 script {
-                        // git config --global user.email ahmedelbltagy1999@gmail.com && git config --global user.name ahmedgaberelbltagy
-                        // git clone https://github.com/AhmedGaberElbltagy/manifest-files.git
-                        // cd manifest-files
-                        // sed -i "s,tag:.*,tag:\ ${{ github.sha }}," helm/webapp/values.yaml
-                        // git add . && git commit -m "update image tag"
-                        // git push
-                        sh """
                         
+                        sh """
+                        git config --global user.email ahmedelbltagy1999@gmail.com && git config --global user.name ahmedgaberelbltagy
+                        git clone https://github.com/AhmedGaberElbltagy/manifest-files.git
+                        cd manifest-files
+                        sed -i 's|image: .*|image: ahmedelbltagy/gitops${env.RELEASE_VERSION}|' deployment.yaml
                         echo "updating image tag in values file"
                         
                         """
